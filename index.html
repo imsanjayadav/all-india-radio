@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All India FM Radio · full channel list</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0c1825, #1f3040);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .radio-app {
+      max-width: 1300px;
+      width: 100%;
+      background: rgba(20, 35, 48, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 215, 150, 0.1);
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+      padding: 1.8rem 1.8rem;
+    }
+
+    /* header */
+    .app-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .title-section h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f9d77e, #ffb347);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .title-section h1 i {
+      color: #ffb85b;
+      background: #1e3a5f;
+      padding: 0.6rem;
+      border-radius: 50%;
+    }
+
+    .search-box {
+      background: #1f3443;
+      border-radius: 3rem;
+      padding: 0.4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      border: 1px solid #4e6b82;
+      width: 260px;
+    }
+
+    .search-box i {
+      color: #f5b342;
+      margin-right: 8px;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .search-box input::placeholder {
+      color: #9bb4cc;
+    }
+
+    /* now playing card */
+    .now-playing-card {
+      background: linear-gradient(135deg, #1f3343, #14232f);
+      border-radius: 2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #f5b34240;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .station-info {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .station-icon {
+      width: 75px;
+      height: 75px;
+      background: #253e54;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      border: 2px solid #f5b342;
+      color: #f9d27e;
+    }
+
+    .station-meta h3 {
+      color: #b0d0ed;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+    }
+
+    .current-station-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .current-freq {
+      color: #c0d4e6;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #00000040;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid #4b6f8c;
+    }
+
+    .volume-control i {
+      color: #f0c480;
+    }
+
+    #volumeSlider {
+      width: 90px;
+      accent-color: #f5b342;
+    }
+
+    .play-pause-btn {
+      background: #f5b342;
+      border: none;
+      width: 64px;
+      height: 64px;
+      border-radius: 40px;
+      font-size: 2rem;
+      color: #0b1c2c;
+      cursor: pointer;
+      box-shadow: 0 10px 18px #f5b34270;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+
+    .play-pause-btn.playing {
+      background: #46c98b;
+      box-shadow: 0 10px 18px #46c98b90;
+    }
+
+    .play-pause-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* filter pills row (language / city / format) */
+    .filter-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .filter-label {
+      color: #b3cde0;
+      font-size: 0.9rem;
+      margin-right: 4px;
+    }
+
+    .filter-pill {
+      background: #1f3445;
+      border: 1px solid #3f5e79;
+      color: #deecfb;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-pill i {
+      margin-right: 6px;
+      color: #f5b342;
+    }
+
+    .filter-pill.active {
+      background: #f5b342;
+      border-color: #f5b342;
+      color: #0d1c2b;
+      font-weight: 600;
+    }
+
+    .filter-pill.active i {
+      color: #0b1f2e;
+    }
+
+    /* station grid */
+    .station-grid-container {
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: #f5b342 #1e3445;
+    }
+
+    .station-grid-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .station-grid-container::-webkit-scrollbar-track {
+      background: #1e3445;
+      border-radius: 20px;
+    }
+
+    .station-grid-container::-webkit-scrollbar-thumb {
+      background: #f5b342;
+      border-radius: 20px;
+    }
+
+    .station-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .station-card {
+      background: #1d3141e0;
+      border: 1px solid #3b5c78;
+      border-radius: 2rem;
+      padding: 1.3rem 1rem 1rem;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 8px 12px #00000040;
+    }
+
+    .station-card:hover {
+      background: #274a62;
+      border-color: #f5b342;
+      transform: translateY(-4px);
+    }
+
+    .station-card.active-station {
+      background: #1f4b66;
+      border: 2px solid #f5b342;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      font-size: 0.65rem;
+      color: #bcd8f0;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-tags span {
+      background: #0e2a3b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid #567e9c;
+    }
+
+    .card-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .card-frequency {
+      font-family: monospace;
+      background: #00000030;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 6px;
+      color: #f5b342;
+      border: 1px solid #f5b34260;
+    }
+
+    .card-lang {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #c0daf5;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .no-stations {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: #bdd8f0;
+      background: #1b314140;
+      border-radius: 4rem;
+    }
+
+    #radioPlayer {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      .now-playing-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .player-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="radio-app">
+    <!-- header with search -->
+    <div class="app-header">
+      <div class="title-section">
+        <h1><i class="fas fa-satellite-dish"></i> AIR · complete India</h1>
+      </div>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search stations, city, language...">
+      </div>
+    </div>
+
+    <!-- now playing -->
+    <div class="now-playing-card">
+      <div class="station-info">
+        <div class="station-icon" id="stationIcon"><i class="fas fa-tower-broadcast"></i></div>
+        <div class="station-meta">
+          <h3><i class="fas fa-play" style="color:#f5b342"></i> CURRENTLY PLAYING</h3>
+          <div class="current-station-name" id="currentStationName">Radio Mirchi 98.3 FM</div>
+          <div class="current-freq" id="currentStationFreq"><i class="fas fa-signal"></i> 98.3 MHz · Mumbai</div>
+        </div>
+      </div>
+      <div class="player-controls">
+        <div class="volume-control">
+          <i class="fas fa-volume-low"></i>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+          <i class="fas fa-volume-high"></i>
+        </div>
+        <button class="play-pause-btn" id="playPauseBtn"><i class="fas fa-play" id="playPauseIcon"></i></button>
+      </div>
+    </div>
+
+    <!-- dynamic filter pills (languages / cities) built from station data -->
+    <div class="filter-section" id="filterContainer">
+      <span class="filter-label"><i class="fas fa-filter"></i> Filter:</span>
+      <div class="filter-pill active" data-filter="all"><i class="fas fa-globe"></i> All</div>
+      <!-- rest will be injected by js -->
+    </div>
+
+    <!-- station grid -->
+    <div class="station-grid-container">
+      <div class="station-grid" id="stationGrid"></div>
+    </div>
+
+    <audio id="radioPlayer" preload="none"></audio>
+  </div>
+
+  <script>
+    (function () {
+      // ----------------------------------------------------------------
+      // COMPLETE STATION LIST (based on user's detailed input)
+      // ----------------------------------------------------------------
+      const stations = [
+        {
+          name: 'Radio Mirchi 98.3 FM',
+          freq: '98.3', city: 'Mumbai', lang: 'Hindi', format: 'Bollywood',
+          stream: 'https://eu8.fastcast4u.com/proxy/clyedupq?mp=%2F1?aw_0_req_lsid=2c0fae177108c9a42a7cf24878625444', // Updated stable Zeno link
+          icon: '🎤'
+        },
+        {
+          name: 'Vividh Bharati',
+          freq: '102.6', city: 'Delhi', lang: 'Hindi', format: 'National',
+          stream: 'https://air.pc.cdn.bitgravity.com/air/live/pbaudio001/playlist.m3u8',
+          icon: '🇮🇳'
+        },
+        {
+          name: '92.7 Big FM',
+          freq: '92.7', city: 'Mumbai', lang: 'Hindi', format: 'Bollywood',
+          stream: 'https://stream.zeno.fm/dbstwo3dvhhtv',
+          icon: '🔊'
+        },
+        {
+          name: 'Radio BBC World Service',
+          freq: '101.1', city: 'Delhi', lang: 'English', format: 'News',
+          stream: 'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service',
+          icon: '🌍'
+        },
+        {
+          name: '93.5 Red FM',
+          freq: '93.5', city: 'Delhi', lang: 'Hindi', format: 'News',
+          stream: 'https://stream.zeno.fm/9phrkb1e3v8uv',
+          icon: '🌍'
+        },
+
+
+
+        {
+          name: 'Ishq FM',
+          freq: '104.2', city: 'Delhi', lang: 'Hindi', format: 'Love Songs',
+          stream: 'https://drive.uber.radio/uber/bollywoodlove/icecast.audio', // Direct MP3 stream
+          icon: '❤️'
+        },
+        {
+          name: 'Radio City Hindi',
+          freq: '91.1', city: 'Mumbai', lang: 'Hindi', format: 'Hindi',
+          stream: 'https://stream-177.zeno.fm/pxc55r5uyc9uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiJweGM1NXI1dXljOXV2IiwiaG9zdCI6InN0cmVhbS0xNzcuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6ImplWXdDUDhwU3ZpZTQtOHRDSDVoR3ciLCJpYXQiOjE3NzMxNDg5MTQsImV4cCI6MTc3MzE0ODk3NH0.wJOSrzcCqqTb8SX7I-IT-drPH4pXZMfw22zCjjjcLp0',
+          icon: '🏬'
+        },
+        {
+          name: 'Radio Mango 91.9',
+          freq: '91.9', city: 'Kochi', lang: 'Malayalam', format: 'Malayalam',
+          stream: 'https://listen.openstream.co/4635/audio',
+          icon: '🥭'
+        },
+        {
+          name: 'Hungama 90s Once Again',
+          freq: '95.0', city: 'Mumbai', lang: 'Hindi', format: 'Old songs',
+          stream: 'https://stream.zeno.fm/rm4i9pdex3cuv',
+          icon: '🕺'
+        },
+        {
+          name: 'Mohammed Rafi Radio',
+          freq: '95.0', city: 'Mumbai', lang: 'Hindi', format: 'Old songs',
+          stream: 'https://stream.zeno.fm/2xx62x8ztm0uv',
+          icon: '🕺'
+        },
+
+
+
+
+
+
+      ];   // DOM elements
+      const grid = document.getElementById('stationGrid');
+      const filterContainer = document.getElementById('filterContainer');
+      const searchInput = document.getElementById('searchInput');
+      const audioPlayer = document.getElementById('radioPlayer');
+      const playBtn = document.getElementById('playPauseBtn');
+      const playIcon = document.getElementById('playPauseIcon');
+      const volSlider = document.getElementById('volumeSlider');
+      const currentNameSpan = document.getElementById('currentStationName');
+      const currentFreqSpan = document.getElementById('currentStationFreq');
+      const stationIconDiv = document.getElementById('stationIcon');
+
+      // state
+      let activeStation = stations[0]; // Radio Mirchi default
+      let currentFilter = 'all';
+      let currentLanguageFilter = '';
+      let currentFormatFilter = '';
+      let searchQuery = '';
+      let isPlaying = false;
+
+      // collect unique languages & formats for filters
+      const languages = [...new Set(stations.map(s => s.lang))].sort();
+      const formats = [...new Set(stations.map(s => s.format))].sort();
+
+      // populate filter pills (languages and formats) in addition to 'All'
+      function renderFilterPills() {
+        let html = `<div class="filter-pill active" data-filter="all" data-type="all"><i class="fas fa-globe"></i> All</div>`;
+        html += `<span class="filter-label" style="margin-left:10px;"><i class="fas fa-language"></i> Lang:</span>`;
+        languages.forEach(lang => {
+          html += `<div class="filter-pill" data-filter="${lang}" data-type="lang"><i class="fas fa-flag"></i> ${lang}</div>`;
+        });
+        html += `<span class="filter-label" style="margin-left:10px;"><i class="fas fa-tag"></i> Format:</span>`;
+        formats.slice(0, 8).forEach(fmt => { // limit to 8 for brevity
+          html += `<div class="filter-pill" data-filter="${fmt}" data-type="format"><i class="fas fa-music"></i> ${fmt}</div>`;
+        });
+        filterContainer.innerHTML = html + filterContainer.innerHTML; // keep existing label
+      }
+      renderFilterPills();
+
+      // filter + search logic
+      function filterStations() {
+        return stations.filter(s => {
+          // filter by main category (all, or lang match, or format match)
+          if (currentFilter !== 'all') {
+            if (currentLanguageFilter && s.lang !== currentLanguageFilter) return false;
+            if (currentFormatFilter && s.format !== currentFormatFilter) return false;
+          }
+          // search query
+          if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            return s.name.toLowerCase().includes(q) || s.city.toLowerCase().includes(q) || s.lang.toLowerCase().includes(q) || s.format.toLowerCase().includes(q);
+          }
+          return true;
+        });
+      }
+
+      function renderGrid() {
+        const filtered = filterStations();
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div class="no-stations"><i class="fas fa-cloud-moon"></i> No matching stations</div>';
+          return;
+        }
+        let html = '';
+        filtered.forEach(station => {
+          const activeClass = (station.name === activeStation.name && station.city === activeStation.city) ? 'active-station' : '';
+          html += `
+        <div class="station-card ${activeClass}" data-name="${station.name}" data-city="${station.city}" data-freq="${station.freq}" data-lang="${station.lang}" data-format="${station.format}" data-stream="${station.stream}" data-icon="${station.icon}">
+          <div class="card-tags"><span>${station.city}</span><span>${station.lang}</span></div>
+          <div class="card-name">${station.name}</div>
+          <div class="card-frequency">${station.freq} MHz</div>
+          <div class="card-lang"><i class="fas fa-microphone-alt"></i> ${station.format}</div>
+        </div>
+      `;
+        });
+        grid.innerHTML = html;
+      }
+
+      // update now playing & active visual
+      function setActiveStation(station) {
+        activeStation = station;
+        currentNameSpan.innerText = station.name;
+        currentFreqSpan.innerHTML = `<i class="fas fa-signal"></i> ${station.freq} MHz · ${station.city}`;
+        stationIconDiv.innerHTML = station.icon ? `<span style="font-size:2.8rem;">${station.icon}</span>` : '<i class="fas fa-tower-broadcast"></i>';
+
+        // highlight active card
+        document.querySelectorAll('.station-card').forEach(card => {
+          const name = card.dataset.name;
+          const city = card.dataset.city;
+          if (name === station.name && city === station.city) card.classList.add('active-station');
+          else card.classList.remove('active-station');
+        });
+
+        // set audio src (but don't autoplay unless playing)
+        if (audioPlayer.src !== station.stream) {
+          audioPlayer.src = station.stream;
+          audioPlayer.load();
+          if (isPlaying) {
+            audioPlayer.play().catch(() => { });
+          }
+        }
+      }
+
+      // toggle play
+      function togglePlay() {
+        if (!activeStation) return;
+        if (isPlaying) {
+          audioPlayer.pause();
+          playBtn.classList.remove('playing');
+          playIcon.className = 'fas fa-play';
+        } else {
+          if (!audioPlayer.src) {
+            audioPlayer.src = activeStation.stream;
+            audioPlayer.load();
+          }
+          audioPlayer.play()
+            .then(() => {
+              playBtn.classList.add('playing');
+              playIcon.className = 'fas fa-pause';
+            })
+            .catch(() => alert('Stream cannot be played. Check console.'));
+        }
+        isPlaying = !isPlaying;
+      }
+
+      // event listeners
+      filterContainer.addEventListener('click', (e) => {
+        const pill = e.target.closest('.filter-pill');
+        if (!pill) return;
+        const filterVal = pill.dataset.filter;
+        const type = pill.dataset.type; // 'lang' , 'format' or 'all'
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        if (type === 'all') {
+          currentLanguageFilter = '';
+          currentFormatFilter = '';
+          currentFilter = 'all';
+        } else if (type === 'lang') {
+          currentLanguageFilter = filterVal;
+          currentFormatFilter = '';
+          currentFilter = 'lang';
+        } else if (type === 'format') {
+          currentFormatFilter = filterVal;
+          currentLanguageFilter = '';
+          currentFilter = 'format';
+        }
+        renderGrid();
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderGrid();
+      });
+
+      grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.station-card');
+        if (!card) return;
+        const station = {
+          name: card.dataset.name,
+          city: card.dataset.city,
+          freq: card.dataset.freq,
+          lang: card.dataset.lang,
+          format: card.dataset.format,
+          stream: card.dataset.stream,
+          icon: card.dataset.icon
+        };
+        setActiveStation(station);
+        if (isPlaying) {
+          // play new station if already playing
+          audioPlayer.play().catch(() => { });
+        }
+      });
+
+      playBtn.addEventListener('click', togglePlay);
+
+      audioPlayer.addEventListener('pause', () => {
+        isPlaying = false;
+        playBtn.classList.remove('playing');
+        playIcon.className = 'fas fa-play';
+      });
+      audioPlayer.addEventListener('ended', () => {
+        isPlaying = false;
+        playBtn.classList.remove('playing');
+        playIcon.className = 'fas fa-play';
+      });
+
+      volSlider.addEventListener('input', (e) => { audioPlayer.volume = e.target.value; });
+      audioPlayer.volume = 0.7;
+
+      // initial render
+      renderGrid();
+      setActiveStation(stations[0]);
+    })();
+  </script>
+</body>
+
+</html>
