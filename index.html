@@ -497,6 +497,15 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
+    /* Hide skip buttons in mini player */
+    .mini-player-controls .fas-skip {
+      display: none;
+    }
+
+    .player-expanded .mini-player-controls .fas-skip {
+      display: block;
+    }
+
     /* ----- Bottom Nav ----- */
     .bottom-nav {
       position: absolute;
@@ -903,17 +912,11 @@
       </div>
 
       <div class="mini-player-controls">
-        <div class="expanded-only" style="flex-direction: row; gap: 40px;">
-          <i class="fas fa-backward-step" style="font-size: 1.5rem; color: var(--text-secondary);"></i>
-          <div class="play-circle" id="playBtn">
-            <i class="fas fa-play" id="playIcon"></i>
-          </div>
-          <i class="fas fa-forward-step" style="font-size: 1.5rem; color: var(--text-secondary);"></i>
+        <i class="fas fa-backward-step fas-skip" style="font-size: 1.5rem; color: var(--text-secondary);"></i>
+        <div class="play-circle" id="playBtn">
+          <i class="fas fa-play" id="playIcon"></i>
         </div>
-        <!-- Simple play for mini player -->
-        <div class="play-circle" id="miniPlayBtn">
-          <i class="fas fa-play" id="miniPlayIcon"></i>
-        </div>
+        <i class="fas fa-forward-step fas-skip" style="font-size: 1.5rem; color: var(--text-secondary);"></i>
       </div>
 
       <div class="expanded-only" style="width: 100%;">
@@ -972,9 +975,7 @@
       const playerClose = document.getElementById('playerClose');
       const audioPlayer = document.getElementById('audioPlayer');
       const playBtn = document.getElementById('playBtn');
-      const miniPlayBtn = document.getElementById('miniPlayBtn');
       const playIcon = document.getElementById('playIcon');
-      const miniPlayIcon = document.getElementById('miniPlayIcon');
       const volumeSlider = document.getElementById('volumeSlider');
 
       const playerName = document.getElementById('playerName');
@@ -1113,7 +1114,6 @@
         audioPlayer.play().then(() => {
           isPlaying = true;
           playIcon.className = 'fas fa-pause';
-          miniPlayIcon.className = 'fas fa-pause';
           playerStatus.innerText = 'Live - Streaming';
         }).catch(err => {
           console.error("Playback failed", err);
@@ -1125,7 +1125,6 @@
         audioPlayer.pause();
         isPlaying = false;
         playIcon.className = 'fas fa-play';
-        miniPlayIcon.className = 'fas fa-play';
         playerStatus.innerText = 'Live - Paused';
       }
 
@@ -1187,11 +1186,6 @@
 
         // Play/Pause
         playBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          togglePlay();
-        });
-
-        miniPlayBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           togglePlay();
         });
