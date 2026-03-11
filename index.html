@@ -582,6 +582,17 @@
       margin-bottom: 16px;
       opacity: 0.3;
     }
+
+    /* Footer Copyright */
+    .app-footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      opacity: 0.6;
+      border-top: 1px solid var(--glass-border);
+      margin-top: 40px;
+    }
   </style>
 </head>
 
@@ -592,11 +603,14 @@
       <div class="header">
         <div class="logo">
           <i class="fas fa-wave-square"></i>
-          <span>Aura Radio</span>
+          <div style="display: flex; flex-direction: column;">
+            <span>Aura Radio</span>
+            <span style="font-size: 0.65rem; color: var(--text-secondary); font-weight: 400; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; opacity: 0.8;">Vision X Digital</span>
+          </div>
         </div>
-        <!-- <div class="profile-btn">
+        <div class="profile-btn">
           <i class="fas fa-user"></i>
-        </div> -->
+        </div>
       </div>
 
       <!-- Search -->
@@ -630,6 +644,11 @@
       <div class="section-title">Explore Stations</div>
       <div class="station-grid" id="stationGrid">
         <!-- JS Injection -->
+      </div>
+
+      <!-- Footer / Copyright -->
+      <div class="app-footer">
+        <p>© 2026 Vision X Digital Private Limited</p>
       </div>
     </div>
 
